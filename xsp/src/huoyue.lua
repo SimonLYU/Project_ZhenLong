@@ -51,7 +51,7 @@ end
 
 function func_huoyue_lingqu_baoxiang()
 	util.click(HUOYUE_baoxiang_position_x[HUOYUE_baoxiang_position] , HUOYUE_baoxiang_position_y)
-	mSleep(1000)
+	mSleep(500)
 	x, y = findColorInRegionFuzzy(0xb59643, 99, 
 		971, 
 		947, 

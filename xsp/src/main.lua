@@ -7,6 +7,8 @@ require("huoyue")
 require("jiasu")
 require("renwu")
 require("attack")
+require("shouhuo")
+
 local bb = require("3rd.badboy")
 local json = bb.json
 --moudle
@@ -19,6 +21,7 @@ CONFIG_huoyue = 1
 CONFIG_jiasu = 1
 CONFIG_renwu = 1
 CONFIG_attack = 1
+CONFIG_shouhuo = 1
 
 --有选项页
 function configUI()
@@ -64,8 +67,8 @@ function configUI()
 						["id"] = "CheckBoxGroup1",
 						["type"] = "CheckBoxGroup",
 						["size"] = 40,
-						["list"] = "自动造兵,队列出征,领取宝箱,活跃奖励,军团加速,领取任务,被打开罩",
-						["select"] = "0,1,2,3,4,5,6",
+						["list"] = "自动造兵,队列出征,领取宝箱,活跃奖励,军团加速,领取任务,被打开罩,自动收货",
+						["select"] = "0,1,2,3,4,5,6,7",
 						["color"] = "255,255,255",
 					},
 					{
@@ -320,13 +323,19 @@ function main()
 			CONFIG_attack = 0
 			_G["config_attack"]  = 0
 		end
+		--自动收货
+		if bb.strutils.contains(results["CheckBoxGroup1"],"7") then--自动收货
+			CONFIG_shouhuo = 1
+		else 
+			CONFIG_shouhuo = 0
+		end
 		
 	else
 		dialog("主人拜拜,我们下次见哦~", 0)
 		lua_exit()
 	end
 	--protect
-	if CONFIG_zaobing == 0 and CONFIG_chuzheng == 0 and CONFIG_baoxiang == 0 and CONFIG_huoyue == 0 and CONFIG_jiasu == 0 and CONFIG_renwu == 0 and CONFIG_attack == 0 then
+	if CONFIG_shouhuo == 0 and CONFIG_zaobing == 0 and CONFIG_chuzheng == 0 and CONFIG_baoxiang == 0 and CONFIG_huoyue == 0 and CONFIG_jiasu == 0 and CONFIG_renwu == 0 and CONFIG_attack == 0 then
 		dialog("主人,要记得选择功能哦~",0)
 		main()
 		return 0
@@ -351,6 +360,9 @@ function main()
 		end
 		if CONFIG_renwu == 1 then
 			renwu.func_renwu_main()
+		end
+		if CONFIG_shouhuo == 1 then
+			shouhuo.func_shouhuo_main()
 		end
 		if CONFIG_attack == 1 then
 			attack.func_attack_main()
