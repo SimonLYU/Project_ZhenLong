@@ -108,8 +108,4 @@ function util.hudToast(toastInfo)
 	showHUD(my_hud_id,toastInfo,hud_text_font_size,hud_text_color,hud_background_color,0,0,screen_width  * 0.15,screen_width * 0.7,screen_height  * 0.055)  
 end
 
---ceshi..
-function none()
-end
-
 return util
